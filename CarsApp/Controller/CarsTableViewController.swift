@@ -9,45 +9,22 @@ import UIKit
 
 class CarsTableViewController: UITableViewController {
     
-    var user : [UserEntity] = []
     var cars : [CarEntity] = []
-    var dataUser : UserData = UserData()
-    var request = RequestApi()
-    var urlApi = "https://carros-springboot.herokuapp.com/api/v2/carros"
+    var carApi = CarApi();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = true
         getCars()
+        self.navigationItem.hidesBackButton = true
+        
     }
     
-    func getCars()  {
-        if (dataUser.getToken() != ""){
-            let response = request.getRequest(url: urlApi, method: "GET", token: dataUser.getToken())
-            let tarefa =  URLSession.shared.dataTask(with: response){ [self]
-                (dados, resposta, erro) in
-                if((resposta as! HTTPURLResponse).statusCode == 200){
-                    
-                    if let dadosRetornados = dados{
-                        do{
-                            let decoder = try JSONDecoder().decode([CarEntity].self, from: dadosRetornados)
-                            for data in decoder{
-                                self.cars.append(data)
-                            }
-                            self.tableView.reloadData()
-                            
-                            }catch{
-                            print("Erro ao converter dados")
-                        }
-                    }
-                }else{
-                    print("erro ao conectar ao servidor")
-                }
-                
-            }
-            
-            tarefa.resume()
+    func getCars()  {           
+        carApi.getAllCar(){ (completion) in
+            self.cars = completion
+            self.tableView.reloadData()
         }
+       
     }
     
     // MARK: - Table view data source

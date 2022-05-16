@@ -24,6 +24,7 @@
 		7D46BF322829C8AD00A43921 /* RequestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46BF312829C8AD00A43921 /* RequestApi.swift */; };
 		7D46BF352829CFE200A43921 /* LoginEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46BF342829CFE200A43921 /* LoginEntity.swift */; };
 		7D677E9A282A843D002086BE /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D677E99282A843D002086BE /* UserData.swift */; };
+		7D6894D0282FCA1A00EDAD64 /* CarApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6894CF282FCA1A00EDAD64 /* CarApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		7D46BF312829C8AD00A43921 /* RequestApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestApi.swift; sourceTree = "<group>"; };
 		7D46BF342829CFE200A43921 /* LoginEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEntity.swift; sourceTree = "<group>"; };
 		7D677E99282A843D002086BE /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		7D6894CF282FCA1A00EDAD64 /* CarApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				7D46BF312829C8AD00A43921 /* RequestApi.swift */,
 				7D677E99282A843D002086BE /* UserData.swift */,
 				7D3AE92C282AE92D00AF05BE /* CarData.swift */,
+				7D6894CF282FCA1A00EDAD64 /* CarApi.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				7D677E9A282A843D002086BE /* UserData.swift in Sources */,
 				7D3AE926282AD7D500AF05BE /* MapViewController.swift in Sources */,
 				7D46BF272829B73D00A43921 /* CarEntity.swift in Sources */,
+				7D6894D0282FCA1A00EDAD64 /* CarApi.swift in Sources */,
 				7D3AE923282ABD3400AF05BE /* InfoCarViewController.swift in Sources */,
 				7D46BF052829B65600A43921 /* AppDelegate.swift in Sources */,
 				7D3AE92D282AE92D00AF05BE /* CarData.swift in Sources */,
