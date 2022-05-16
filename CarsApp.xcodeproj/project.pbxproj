@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D3777DF2831CE9E00EF56E5 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3777DE2831CE9E00EF56E5 /* UserApi.swift */; };
 		7D3AE91D282A909700AF05BE /* CarsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3AE91C282A909700AF05BE /* CarsTableViewController.swift */; };
 		7D3AE920282AA80400AF05BE /* CarsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3AE91F282AA80400AF05BE /* CarsCell.swift */; };
 		7D3AE923282ABD3400AF05BE /* InfoCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3AE922282ABD3400AF05BE /* InfoCarViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D3777DE2831CE9E00EF56E5 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 		7D3AE91C282A909700AF05BE /* CarsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsTableViewController.swift; sourceTree = "<group>"; };
 		7D3AE91F282AA80400AF05BE /* CarsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsCell.swift; sourceTree = "<group>"; };
 		7D3AE922282ABD3400AF05BE /* InfoCarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCarViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				7D677E99282A843D002086BE /* UserData.swift */,
 				7D3AE92C282AE92D00AF05BE /* CarData.swift */,
 				7D6894CF282FCA1A00EDAD64 /* CarApi.swift */,
+				7D3777DE2831CE9E00EF56E5 /* UserApi.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D3AE920282AA80400AF05BE /* CarsCell.swift in Sources */,
+				7D3777DF2831CE9E00EF56E5 /* UserApi.swift in Sources */,
 				7D3AE91D282A909700AF05BE /* CarsTableViewController.swift in Sources */,
 				7D46BF322829C8AD00A43921 /* RequestApi.swift in Sources */,
 				7D46BF2F2829B7F300A43921 /* LoginViewController.swift in Sources */,
