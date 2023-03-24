@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public class CarEntity : Codable {
+struct CarEntity : Codable {
     var id : Int?
     var nome : String?
     var tipo : String?

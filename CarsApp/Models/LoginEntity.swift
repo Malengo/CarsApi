@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LoginEntity : Codable {
-    var username : String?
-    var password : String?
+struct LoginEntity : Codable {
+    var username: String
+    var password: String
 }

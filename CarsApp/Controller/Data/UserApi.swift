@@ -6,50 +6,32 @@
 //
 
 import Foundation
+
 class UserApi{
-    var request = RequestApi()
+    
+    var requestAPI = RequestApi()
     var userData = UserData()
     var urlApi : String = "https://carros-springboot.herokuapp.com/api/v2/login"
 
     
-    func getUserApi(_ login: String, _ password: String) -> Bool {
-        var complete = true
-        var response = request.getRequest(url: urlApi, method: "POST", token: "")
-        let userLogin = LoginEntity();
+    func getUserApi(_ userLogin: LoginEntity) async -> Bool {
         
-        userLogin.username = login
-        userLogin.password = password
+        guard var request = requestAPI.setupRequest(url: urlApi, method: "POST", token: "") else { return false }
         
         do {
-            try response.httpBody = JSONEncoder().encode(userLogin)
-        } catch {
-            print ("Erro ao converter")
-        }
-        let tarefa =  URLSession.shared.dataTask(with: response){ [self]
-            (dados, resposta, erro) in
-            if((resposta as! HTTPURLResponse).statusCode == 200){
-                
-                if let dadosRetornados = dados{
-                    do{
-                        let decoder = try JSONDecoder().decode(UserEntity.self, from: dadosRetornados)
-                        var user = UserEntity()
-                        user = decoder
-                        userData.salve(user: user)
-                       
-                    }catch{
-                        print("Erro ao converter dados")
-                    }
-                    
-                }
-            }else{
-                complete = false
-                print("erro")
-            }
+            try request.httpBody = JSONEncoder().encode(userLogin)
+            let (data, response) = try await URLSession.shared.data(for: request)
             
+            if (response as? HTTPURLResponse)?.statusCode == 200 {
+                let decoder = try JSONDecoder().decode(UserEntity.self, from: data)
+                var user = UserEntity()
+                user = decoder
+                userData.salve(user: user)
+                return true
+            }
+        } catch {
+            return false
         }
-        
-        tarefa.resume()
-        return complete
+        return false
     }
-    
 }

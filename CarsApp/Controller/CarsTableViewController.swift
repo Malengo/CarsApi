@@ -9,22 +9,22 @@ import UIKit
 
 class CarsTableViewController: UITableViewController {
     
-    var cars : [CarEntity] = []
-    var carApi = CarApi();
+    var cars: [CarEntity]?
+    var carApi = CarApi()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getCars()
         self.navigationItem.hidesBackButton = true
-        
     }
     
-    func getCars()  {           
-        carApi.getAllCar(){ (completion) in
-            self.cars = completion
-            self.tableView.reloadData()
+    func getCars()  {
+        Task {
+            self.cars = try await carApi.getAllCar()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
-       
     }
     
     // MARK: - Table view data source
@@ -40,70 +40,46 @@ class CarsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return cars.count
+        return cars?.count ?? 0
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellCars", for: indexPath) as! CarsCell
         
-        cell.carName?.text = cars[indexPath.row].nome
-        if let url = cars[indexPath.row].urlFoto{
-            cell.imgCar.image = UIImage(data: NSData(contentsOf: NSURL(string: url)! as URL)! as Data)
+        cell.carName?.text = cars?[indexPath.row].nome
+        
+        if let newUrl = URL(string: self.cars?[indexPath.row].urlFoto ?? "") {
+            let request = URLRequest(url: newUrl)
+            Task {
+                let image = UIImage()
+                cell.imgCar.image = try await image.loadImageData(request)
+            }
         }
-        
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "InfoCar") as! InfoCarViewController
-        vc.car = cars[indexPath.row]
+        vc.car = cars?[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+}
+
+extension UIImage {
+    func loadImageData(_ request: URLRequest) async throws -> UIImage {
+        var image: UIImage
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else { throw NSError.init(domain: "Error", code: 1)}
+            guard httpResponse.statusCode == 200  else { throw NSError.init(domain: "Error", code: 2)}
+            
+            image = UIImage(data: data)!
+            return image
+        } catch {
+            return UIImage()
+        }
+        
+    }
 }
